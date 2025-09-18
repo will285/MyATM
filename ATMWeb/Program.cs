@@ -1,9 +1,18 @@
+using ATMData;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 
+// Configure ATMContext with a database connection
+builder.Services.AddDbContext<ATMContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("ATMDatabase")));
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddSession();
+
 var app = builder.Build();
+app.UseSession();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -14,13 +23,12 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseStaticFiles();
 
 app.UseRouting();
 
 app.UseAuthorization();
 
-app.MapStaticAssets();
-app.MapRazorPages()
-   .WithStaticAssets();
+app.MapRazorPages();
 
 app.Run();

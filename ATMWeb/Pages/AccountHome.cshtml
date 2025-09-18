@@ -1,0 +1,54 @@
+﻿@page "{accountNumber?}"
+@model ATMWeb.Pages.AccountHomeModel
+@{
+    ViewData["Title"] = "Account Home";
+}
+
+<h2>Account Home</h2>
+
+@if (Model.Account != null)
+{
+    <div class="card mb-3">
+        <div class="card-body">
+            <h4>@Model.Account.AccountName (@Model.Account.AccountNumber)</h4>
+            <p>@Model.Account.AccountDescription</p>
+            <p><strong>Balance:</strong> $@Model.Account.Balance</p>
+        </div>
+    </div>
+
+    <h5>Recent Transactions</h5>
+    @if (Model.Transactions.Any())
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Type</th>
+                    <th>Amount</th>
+                    <th>From</th>
+                    <th>To</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var t in Model.Transactions)
+                {
+                    <tr>
+                        <td>
+                            @(t.IsDeposit ? "Deposit" : t.IsTransfer ? "Transfer" : "Withdrawal")
+                        </td>
+                        <td>$@t.Amount</td>
+                        <td>@t.FromAccountNumber</td>
+                        <td>@(t.ToAccountNumber?.ToString() ?? "-")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No recent transactions.</p>
+    }
+}
+else
+{
+    <div class="alert alert-danger">Account not found.</div>
+}

@@ -1,0 +1,32 @@
+﻿@page "{accountNumber?}"
+@model ATMWeb.Pages.WithdrawModel
+@{
+    ViewData["Title"] = "Withdraw";
+}
+
+<h2>Withdraw</h2>
+
+@if (Model.ErrorMessage != null)
+{
+    <div class="alert alert-danger">@Model.ErrorMessage</div>
+}
+@if (Model.SuccessMessage != null)
+{
+    <div class="alert alert-success">@Model.SuccessMessage</div>
+}
+
+@if (Model.Account != null)
+{
+    <div>
+        <strong>Account:</strong> @Model.Account.AccountName (@Model.Account.AccountNumber)<br />
+        <strong>Current Balance:</strong> $@Model.Account.Balance
+    </div>
+    <form method="post">
+        <div class="form-group">
+            <label for="Amount">Withdraw Amount</label>
+            <input asp-for="Amount" class="form-control" />
+            <span asp-validation-for="Amount" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary">Withdraw</button>
+    </form>
+}

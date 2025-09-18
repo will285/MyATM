@@ -1,0 +1,38 @@
+﻿@page
+@model ATMWeb.Pages.TransactionsModel
+@{
+    ViewData["Title"] = "Transactions";
+}
+
+<h2>Recent Transactions</h2>
+
+@if (Model.Transactions.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Type</th>
+                <th>Amount</th>
+                <th>From</th>
+                <th>To</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var t in Model.Transactions)
+            {
+                <tr>
+                    <td>
+                        @(t.IsDeposit ? "Deposit" : t.IsTransfer ? "Transfer" : "Withdrawal")
+                    </td>
+                    <td>$@t.Amount</td>
+                    <td>@t.FromAccountNumber</td>
+                    <td>@(t.ToAccountNumber?.ToString() ?? "-")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No transactions found.</p>
+}

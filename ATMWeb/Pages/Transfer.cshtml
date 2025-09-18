@@ -1,0 +1,37 @@
+﻿@page
+@model ATMWeb.Pages.TransferModel
+@{
+    ViewData["Title"] = "Transfer Funds";
+}
+
+<h2>Transfer Funds</h2>
+
+@if (Model.ErrorMessage != null)
+{
+    <div class="alert alert-danger">@Model.ErrorMessage</div>
+}
+@if (Model.SuccessMessage != null)
+{
+    <div class="alert alert-success">@Model.SuccessMessage</div>
+}
+
+@if (Model.FromAccount != null)
+{
+    <div>
+        <strong>From Account:</strong> @Model.FromAccount.AccountName (@Model.FromAccount.AccountNumber)<br />
+        <strong>Current Balance:</strong> $@Model.FromAccount.Balance
+    </div>
+    <form method="post">
+        <div class="form-group">
+            <label for="ToAccountNumber">To Account Number</label>
+            <input asp-for="ToAccountNumber" class="form-control" />
+            <span asp-validation-for="ToAccountNumber" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label for="Amount">Amount</label>
+            <input asp-for="Amount" class="form-control" />
+            <span asp-validation-for="Amount" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary">Transfer</button>
+    </form>
+}

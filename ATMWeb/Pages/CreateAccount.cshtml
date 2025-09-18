@@ -1,0 +1,40 @@
+﻿@page
+@model ATMWeb.Pages.CreateAccountModel
+@{
+    ViewData["Title"] = "Create Account";
+}
+
+<h2>Create Account</h2>
+
+@if (Model.ErrorMessage != null)
+{
+    <div class="alert alert-danger">@Model.ErrorMessage</div>
+}
+
+<form method="post">
+    <div class="form-group">
+        <label asp-for="NewAccount.AccountNumber"></label>
+        <input asp-for="NewAccount.AccountNumber" class="form-control" />
+        <span asp-validation-for="NewAccount.AccountNumber" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="NewAccount.AccountName"></label>
+        <input asp-for="NewAccount.AccountName" class="form-control" />
+        <span asp-validation-for="NewAccount.AccountName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="NewAccount.AccountDescription"></label>
+        <input asp-for="NewAccount.AccountDescription" class="form-control" />
+        <span asp-validation-for="NewAccount.AccountDescription" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="NewAccount.Balance"></label>
+        <input asp-for="NewAccount.Balance" class="form-control" />
+        <span asp-validation-for="NewAccount.Balance" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Create</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
