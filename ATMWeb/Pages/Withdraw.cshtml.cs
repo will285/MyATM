@@ -60,6 +60,12 @@ namespace ATMWeb.Pages
                 return Page();
             }
 
+            if (Account.Balance < Amount)
+            {
+                ErrorMessage = "Insufficient funds.";
+                return Page();
+            }
+
             Account.Balance -= Amount;
             _context.Transactions.Add(new Transaction
             {
